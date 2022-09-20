@@ -1,2 +1,3 @@
 # tower-defense-capstone
-A web-based tower defense game. 
+<p>Contributors: Will Gajewski, Kevin Go, Craig Reade<p>
+<p>Description: A web-based tower defense game.<p>
