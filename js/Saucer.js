@@ -8,12 +8,36 @@ class Saucer {
 			x: this.width/2 + this.position.x,
 			y: this.height/2 + this.position.y
 		}
+		this.animSpeed = 10;
+		this.animCounter = 0;
+		this.health = 5;
 	}
 	
 	draw() {
 		// Drawing enemies
-		c.fillStyle = 'rgba(140, 127, 216, 1)'
-		c.fillRect(this.position.x, this.position.y, this.width, this.height)
+		let saucerImage = new Image();
+		saucerImage.src = 'img/Saucer.png'
+
+		if (this.animCounter <= this.animSpeed) {
+			c.drawImage(saucerImage, 0, 0, 128, 64, this.position.x, this.position.y, 128, 64);
+			this.animCounter += 1;
+		}
+		else if (this.animCounter <= this.animSpeed*2) {
+			c.drawImage(saucerImage, 128, 0, 128, 64, this.position.x, this.position.y, 128, 64);
+			this.animCounter += 1;
+		}
+		else if (this.animCounter <= this.animSpeed*3) {
+			c.drawImage(saucerImage, 256, 0, 128, 64, this.position.x, this.position.y, 128, 64);
+			this.animCounter += 1;
+		}
+		else if (this.animCounter <= this.animSpeed*4) {
+			c.drawImage(saucerImage, 384, 0, 128, 64, this.position.x, this.position.y, 128, 64);
+			this.animCounter += 1;
+		}
+		else {
+			c.drawImage(saucerImage, 384, 0, 128, 64, this.position.x, this.position.y, 128, 64);
+			this.animCounter = 0;
+		}
 	}
 	
 	update() {

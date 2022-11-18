@@ -26,9 +26,7 @@ const enemies = []
 // Enemy spawning
 for (let i = 0; i < 10; i++){
 	const positionOffset = 150 + (i * 150)
-	enemies.push(
-		new Saucer({ position: {x: waypoints1[0].x - positionOffset, y: waypoints1[0].y} })
-		)
+	enemies.push(new Saucer({ position: {x: waypoints1[0].x - positionOffset, y: waypoints1[0].y} }))
 }
 
 // Emplacement generation
@@ -54,8 +52,8 @@ window.addEventListener('mousemove', (event) => {
 	mouse.y = event.clientY
 	
 	activePlacement = null
-	for (let i = 0; i < emplacements.length; i++) {
-		const placement = emplacements[i]
+	for (const element of emplacements) {
+		const placement = element
 		if (mouse.x > placement.position.x - placement.radius * 2 && 
 			mouse.x < placement.position.x + placement.radius * 2 && 
 			mouse.y > placement.position.y - placement.radius * 2 && 
@@ -97,6 +95,10 @@ function animation() {
 	
 	turrets.forEach(Turret => {
 		Turret.draw()
+
+		Turret.projectiles.forEach(projectile => {
+			projectile.update();
+		})
 	})
 }
 

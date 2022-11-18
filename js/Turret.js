@@ -1,14 +1,31 @@
 class Turret {
 	constructor({position = { x:0, y: 0} }) {
 		this.position = position
-		this.color = 'rgba(255, 110, 110, 1)'
-		this.radius = 10
+		this.delay = 100
+		this.counter = 0
+		this.projectiles = [new Projectile({
+			position: {
+				x: this.position.x,
+				y: this.position.y
+			}
+		})]
+			
 	}
 	
 	draw() {
-		c.beginPath()
-		c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
-		c.fillStyle = this.color
-		c.fill()
+		let turretNE = new Image();
+		turretNE.src = 'img/TNE.png'
+		c.drawImage(turretNE, this.position.x-64, this.position.y-48);
+
+		if(this.counter == this.delay) {
+			this.projectiles.push(new Projectile({
+				position: {
+					x: this.position.x,
+					y: this.position.y
+				}
+			}))
+			this.counter = 0
+		}
+		this.counter++
 	}
 }
