@@ -1,114 +1,182 @@
-const canvas = document.querySelector('canvas')
-const c = canvas.getContext('2d')
-		
-		
-// Game Map Import
-canvas.width = 1280
-canvas.height = 640
-		
-		
-// temp fill Style
-c.fillStyle = '#1d6bc2'
-// delete this when done
-c.fillRect(0, 0, canvas.width, canvas.height)
+const canvas = document.querySelector('canvas');
+const c = canvas.getContext('2d');
 
-// Load the map image
-const map = new Image()
-map.src = 'img/Map1.png'
+canvas.width = 1280;
+canvas.height = 640;
 
-map.onload = () => {
-	animation()
+c.fillStyle = 'white';
+c.fillRect(0, 0, canvas.width, canvas.height);
+
+const placementTiles = [];
+
+placements.forEach((row, y) => {
+    row.forEach((symbol, x) => {
+        if (symbol === 1) {
+            placementTiles.push(new PlacementTile({
+                position: {
+                    x: (x + 1) * 64,
+					y: ((y + 1) * 32) - 3
+                }
+            }));
+        }
+    })
+})
+
+const image = new Image();
+image.src = 'img/map.png';
+image.onload = () => {
+    c.drawImage(image, 0, 0);
 }
 
-// Array of enemies
-const enemies = []
+const youDiedAudio = new Audio();
+youDiedAudio.src = 'sound/youDied.mp3';
+youDiedAudio.muted = false;
 
-// Enemy spawning
-for (let i = 0; i < 10; i++){
-	const positionOffset = 150 + (i * 150)
-	enemies.push(new Saucer({ position: {x: waypoints1[0].x - positionOffset, y: waypoints1[0].y} }))
+const enemies = [];
+
+function spawnEnemies(spawnCount, speed, health) {
+    for (let i = 1; i < spawnCount + 1; i ++) {
+        const xOffset = i * 150;
+        enemies.push(new Enemy({position: {x: waypoints[0].x - xOffset, y: waypoints[0].y}, speed, health}));
+    }
 }
 
-// Emplacement generation
-const emplacements = []
+const buildings = [];
+let activeTile = undefined;
+let enemyCount = 3;
+let hearts = 10;
+let coins = 100;
+let buildingCost = 50;
+let speed = 1;
+let health = 90;
 
-placementData1.forEach((row, i) => {
-	row.forEach((symbol, j) => {
-		if (symbol === 1) {
-			emplacements.push(new Emplacement({
-				position: {
-					x: (j + 1) * 64,
-					y: ((i + 1) * 32) - 5
-				}
-			}))
-		}
-	})
-})
+const explosions = [];
 
-// listener to determine where the mouse is hovering over
+spawnEnemies(enemyCount, speed, health);
 
-window.addEventListener('mousemove', (event) => {
-	mouse.x = event.clientX
-	mouse.y = event.clientY
-	
-	activePlacement = null
-	for (const element of emplacements) {
-		const placement = element
-		if (mouse.x > placement.position.x - placement.radius * 2 && 
-			mouse.x < placement.position.x + placement.radius * 2 && 
-			mouse.y > placement.position.y - placement.radius * 2 && 
-			mouse.y < placement.position.y + placement.radius * 2) {
-			activePlacement = placement
-			break }
-	}
-})
+function animate() {
+    const animationId = requestAnimationFrame(animate);
+    
+    c.drawImage(image, 0, 0);
 
-// listener to determine if an activePlacement space has been clicked
+    for (let i = enemies.length - 1; i >= 0; i --) {
+        const enemy = enemies[i];
+        enemy.update();
 
-canvas.addEventListener('click', (event) => {
-	if(activePlacement) {
-		turrets.push(new Turret ({
-			position: {
-				x: activePlacement.position.x,
-				y: activePlacement.position.y
-			}
-		}))
-	}
-})
+        if (enemy.position.x > canvas.width) {
+            hearts -= 1;
+            enemies.splice(i, 1);
+            document.querySelector("#hearts").innerHTML = hearts;
 
-const turrets = []
-let activePlacement = undefined 
+            if (hearts === 0) {
+                cancelAnimationFrame(animationId);
+                document.querySelector('#gameOver').style.display = 'flex';
+                youDiedAudio.play();
+            }
+        }
+    }
 
+    for (let i = explosions.length - 1; i >= 0; i --) {
+        const explosion = explosions[i];
+        explosion.draw();
 
-// Animation sequences
-function animation() {
-	requestAnimationFrame(animation)
-	
-	c.drawImage(map, 0 , 0)
-	emplacements.forEach(placement => {
-		placement.update(mouse)
-	})
-	
-	enemies.forEach(Saucer => {
-		Saucer.update()
-	})
-	
-	turrets.forEach(Turret => {
-		Turret.draw()
+        if (explosion.frames.current >= explosion.frames.max - 1) {
+            explosions.splice(i, 1);
+        }
+    }
 
-		Turret.projectiles.forEach(projectile => {
-			projectile.update();
-		})
-	})
+    //track total amount of enemies
+    if (enemies.length === 0) {
+        enemyCount += 2;
+        speed += 0.25;
+        health += 5;
+        spawnEnemies(enemyCount, speed, health);
+    }
+
+    placementTiles.forEach(tile => {
+        tile.update(mouse);
+    });
+
+    buildings.forEach(building => {
+        building.update();
+        building.target = null;
+        const validEnemies = enemies.filter(enemy => {
+            const xDifference = enemy.center.x - building.position.x;
+            const yDifference = enemy.center.y - building.position.y;
+            const distance = Math.hypot(xDifference, yDifference);
+            return distance < enemy.radius + building.radius;
+        });
+        building.target = validEnemies[0];
+
+        for (let i = building.projectiles.length - 1; i >= 0; i --) {
+            const projectile = building.projectiles[i];
+
+            projectile.update();
+
+            const xDifference = projectile.enemy.center.x - projectile.position.x;
+            const yDifference = projectile.enemy.center.y - projectile.position.y;
+            const distance = Math.hypot(xDifference, yDifference);
+            
+            //projectile hits enemy
+            if (distance < projectile.enemy.radius + projectile.radius) {
+                //enemy health and removal
+                projectile.enemy.health -= 20;
+                if (projectile.enemy.health <= 0) {
+                    const enemyIndex = enemies.findIndex((enemy) => {
+                        return projectile.enemy === enemy;
+                    })
+
+                    if (enemyIndex > -1) {
+                        enemies.splice(enemyIndex, 1);
+                        coins += 25;
+                        document.querySelector("#coins").innerHTML = coins;
+                    }
+                }
+                explosions.push(new Sprite({position: {x: projectile.position.x, y: projectile.position.y}, 
+                                            imageSrc: 'img/explosion.png', 
+                                            frames: {max: 10}, 
+                                            offset: {x: -64, y: -64}}));
+                building.projectiles.splice(i, 1);
+            }
+        }
+    });
 }
 
 const mouse = {
-	x: undefined,
-	y: undefined
-}
-	
+    x: undefined,
+    y: undefined
+};
 
+canvas.addEventListener('click', (event) => {
+    if (activeTile && !activeTile.isOccupied && coins >= buildingCost) {
+        coins -= buildingCost;
+        document.querySelector("#coins").innerHTML = coins;
+        buildings.push(new Building({
+            position: {
+                x: activeTile.position.x,
+                y: activeTile.position.y
+            }
+        }));
+        activeTile.isOccupied = true;
+    }
+})
 
+window.addEventListener('mousemove', (event) => {
+    mouse.x = event.clientX;
+    mouse.y = event.clientY;
 
+    activeTile = null;
+    for (const tile of placementTiles) {
+        if (mouse.x > tile.position.x - tile.size && mouse.x < tile.position.x + tile.size * 2 &&
+            mouse.y > tile.position.y - tile.size && mouse.y < tile.position.y + tile.size * 2) {
+            activeTile = tile;
+            break;
+        }
+    }
+})
 
-
+let beginButton = document.querySelector("#beginButton");
+beginButton.addEventListener('click', (event) => {
+    beginButton.style.display = "none";
+    animate();
+})
