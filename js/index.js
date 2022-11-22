@@ -6,8 +6,10 @@ const c = canvas.getContext('2d');
 canvas.width = 1280;
 canvas.height = 640;
 
+//array to hold all tower placement positions
 const placementTiles = [];
 
+//determining valid placement positons on grid
 placements.forEach((row, y) => {
     row.forEach((symbol, x) => {
         if (symbol === 1) {
@@ -21,18 +23,21 @@ placements.forEach((row, y) => {
     })
 })
 
+//loading map image
 const image = new Image();
 image.src = 'img/map.png';
 image.onload = () => {
     c.drawImage(image, 0, 0);
 }
 
+//loading game over "you died" audio
 const youDiedAudio = new Audio();
 youDiedAudio.src = 'sound/youDied.mp3';
-youDiedAudio.muted = false;
 
+//array to hold current enemies
 const enemies = [];
 
+//function to spawn enemies, called for each wave with varying quantity, speed, and health
 function spawnEnemies(spawnCount, speed, health) {
     for (let i = 1; i < spawnCount + 1; i ++) {
         const xOffset = i * 150;
@@ -40,7 +45,10 @@ function spawnEnemies(spawnCount, speed, health) {
     }
 }
 
+//array to hold current buildings
 const buildings = [];
+
+//bunch of game values
 let activeTile = undefined;
 let enemyCount = 3;
 let hearts = 10;
@@ -50,22 +58,33 @@ let speed = 1;
 let health = 90;
 let killCount = 0;
 
+//array to hold active explosions
 const explosions = [];
 
+//spawns first wave of enemies
 spawnEnemies(enemyCount, speed, health);
 
+//main game (animation) loop
 function animate() {
+    //recursive call, keeps game looping
     const animationId = requestAnimationFrame(animate);
     
+    //drawing game map
     c.drawImage(image, 0, 0);
 
+    //update and draw valid placement tiles
     placementTiles.forEach(tile => {
         tile.update(mouse);
     });
 
+    //update and draw buildings
     buildings.forEach(building => {
         building.update();
+        
+        //by default, building has no target
         building.target = null;
+
+        //determines if enemies are in range, and sets target as the first in range
         const validEnemies = enemies.filter(enemy => {
             const xDifference = enemy.center.x - building.position.x;
             const yDifference = enemy.center.y - building.position.y;
@@ -74,11 +93,13 @@ function animate() {
         });
         building.target = validEnemies[0];
 
+        //update and draw the building's projectiles
         for (let i = building.projectiles.length - 1; i >= 0; i --) {
             const projectile = building.projectiles[i];
 
             projectile.update();
 
+            //finding distance to target
             const xDifference = projectile.enemy.center.x - projectile.position.x;
             const yDifference = projectile.enemy.center.y - projectile.position.y;
             const distance = Math.hypot(xDifference, yDifference);
