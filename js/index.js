@@ -49,6 +49,7 @@ let coins = 100;
 let buildingCost = 50;
 let speed = 1;
 let health = 90;
+let killCount = 0;
 
 const explosions = [];
 
@@ -95,7 +96,9 @@ function animate() {
                     if (enemyIndex > -1) {
                         enemies.splice(enemyIndex, 1);
                         coins += 15;
+                        killCount++;
                         document.querySelector("#coins").innerHTML = coins;
+                        document.querySelector("#killCount").innerHTML = killCount;
                     }
                 }
                 explosions.push(new Sprite({position: {x: projectile.position.x, y: projectile.position.y}, 
