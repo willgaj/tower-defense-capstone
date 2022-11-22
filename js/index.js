@@ -59,40 +59,6 @@ function animate() {
     
     c.drawImage(image, 0, 0);
 
-    for (let i = enemies.length - 1; i >= 0; i --) {
-        const enemy = enemies[i];
-        enemy.update();
-
-        if (enemy.position.x > canvas.width) {
-            hearts -= 1;
-            enemies.splice(i, 1);
-            document.querySelector("#hearts").innerHTML = hearts;
-
-            if (hearts === 0) {
-                cancelAnimationFrame(animationId);
-                document.querySelector('#gameOver').style.display = 'flex';
-                youDiedAudio.play();
-            }
-        }
-    }
-
-    for (let i = explosions.length - 1; i >= 0; i --) {
-        const explosion = explosions[i];
-        explosion.draw();
-
-        if (explosion.frames.current >= explosion.frames.max - 1) {
-            explosions.splice(i, 1);
-        }
-    }
-
-    //track total amount of enemies
-    if (enemies.length === 0) {
-        enemyCount += 2;
-        speed += 0.25;
-        health += 5;
-        spawnEnemies(enemyCount, speed, health);
-    }
-
     placementTiles.forEach(tile => {
         tile.update(mouse);
     });
@@ -140,6 +106,40 @@ function animate() {
             }
         }
     });
+
+    for (let i = enemies.length - 1; i >= 0; i --) {
+        const enemy = enemies[i];
+        enemy.update();
+
+        if (enemy.position.x > canvas.width) {
+            hearts -= 1;
+            enemies.splice(i, 1);
+            document.querySelector("#hearts").innerHTML = hearts;
+
+            if (hearts === 0) {
+                cancelAnimationFrame(animationId);
+                document.querySelector('#gameOver').style.display = 'flex';
+                youDiedAudio.play();
+            }
+        }
+    }
+
+    for (let i = explosions.length - 1; i >= 0; i --) {
+        const explosion = explosions[i];
+        explosion.draw();
+
+        if (explosion.frames.current >= explosion.frames.max - 1) {
+            explosions.splice(i, 1);
+        }
+    }
+
+    //track total amount of enemies
+    if (enemies.length === 0) {
+        enemyCount += 2;
+        speed += 0.25;
+        health += 5;
+        spawnEnemies(enemyCount, speed, health);
+    }
 }
 
 const mouse = {
