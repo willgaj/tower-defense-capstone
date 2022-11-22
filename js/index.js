@@ -1,11 +1,10 @@
+//initializing canvas
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
+//setting canvas size
 canvas.width = 1280;
 canvas.height = 640;
-
-c.fillStyle = 'white';
-c.fillRect(0, 0, canvas.width, canvas.height);
 
 const placementTiles = [];
 
@@ -95,7 +94,7 @@ function animate() {
 
                     if (enemyIndex > -1) {
                         enemies.splice(enemyIndex, 1);
-                        coins += 15;
+                        coins += 10;
                         killCount++;
                         document.querySelector("#coins").innerHTML = coins;
                         document.querySelector("#killCount").innerHTML = killCount;
