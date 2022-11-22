@@ -128,7 +128,7 @@ function animate() {
 
                     if (enemyIndex > -1) {
                         enemies.splice(enemyIndex, 1);
-                        coins += 25;
+                        coins += 15;
                         document.querySelector("#coins").innerHTML = coins;
                     }
                 }
