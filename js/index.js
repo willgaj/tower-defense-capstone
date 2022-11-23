@@ -120,8 +120,8 @@ function animate() {
                         enemies.splice(enemyIndex, 1);
                         coins += 10;
                         killCount++;
-                        document.querySelector("#coins").innerHTML = coins;
-                        document.querySelector("#killCount").innerHTML = killCount;
+                        document.querySelector(".coins-value").innerHTML = coins;
+                        document.querySelector(".kill-count-value").innerHTML = killCount;
                     }
                 }
 
@@ -144,12 +144,12 @@ function animate() {
         if (enemy.position.x > canvas.width) {
             hearts -= 1;
             enemies.splice(i, 1);
-            document.querySelector("#hearts").innerHTML = hearts;
+            document.querySelector(".hearts-value").innerHTML = hearts;
 
             //if lives <= 0, pause game, display game over text, play game over sound
             if (hearts <= 0) {
                 cancelAnimationFrame(animationId);
-                document.querySelector('#gameOver').style.display = 'flex';
+                document.querySelector('.fade-in-text').style.display = 'flex';
                 youDiedAudio.play();
             }
         }
@@ -189,7 +189,7 @@ canvas.addEventListener('click', (event) => {
 
         //remove coins, update html, add building, set tile to occupied
         coins -= buildingCost;
-        document.querySelector("#coins").innerHTML = coins;
+        document.querySelector(".coins-value").innerHTML = coins;
         buildings.push(new Building({
             position: {
                 x: activeTile.position.x,
@@ -221,7 +221,7 @@ window.addEventListener('mousemove', (event) => {
 })
 
 //event listener for clickign the begin button
-let beginButton = document.querySelector("#beginButton");
+let beginButton = document.querySelector(".begin-button");
 beginButton.addEventListener('click', (event) => {
 
     //on click, hide button and start game loop

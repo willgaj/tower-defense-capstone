@@ -25,6 +25,11 @@ body {
     animation: fadeIn 5s;
 }
 
+.refresh-text {
+    font-size: 48; 
+    -webkit-text-stroke: .8px black;
+}
+
 .begin-button {
     position: absolute; 
     top: 4; 
