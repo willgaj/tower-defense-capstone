@@ -11,7 +11,8 @@
 <div style="position: relative; display: inline-block;">
     <canvas></canvas>
     <div 
-        id = "gameOver"
+        id= "gameOver"
+        class= "fade-in-text"
         style=
         "position: absolute; 
         top: 0; 
@@ -25,7 +26,8 @@
         font-size: 200; 
         color: #962a23;
         -webkit-text-stroke: 3px black;
-        background-image: radial-gradient(black 30%, transparent 100%, transparent 100%);">
+        background-image: radial-gradient(black 30%, transparent 100%, transparent 100%);
+        animation: fadeIn 5s;">
         <div>YOU DIED</div>
         <div style="font-size: 48; -webkit-text-stroke: .8px black;">Refresh the page to restart. . .</div>
     </div>
@@ -47,7 +49,8 @@
         color: #962a23;
         background-color: grey;
         -webkit-text-stroke: 3px black"
-        >BEGIN</button>
+        >BEGIN
+    </button>
     <div 
         style=
         "position: absolute; 

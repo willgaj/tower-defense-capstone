@@ -54,7 +54,7 @@ let enemyCount = 3;
 let hearts = 10;
 let coins = 100;
 let buildingCost = 50;
-let speed = 1;
+let speed = 10;
 let health = 90;
 let killCount = 0;
 
@@ -106,13 +106,16 @@ function animate() {
             
             //projectile hits enemy
             if (distance < projectile.enemy.radius + projectile.radius) {
-                //enemy health and removal
+                
+                //enemy health damaged
                 projectile.enemy.health -= 20;
                 if (projectile.enemy.health <= 0) {
                     const enemyIndex = enemies.findIndex((enemy) => {
                         return projectile.enemy === enemy;
                     })
 
+                    //enemy removal if health is <= 0
+                    //add coins, kill count, update html
                     if (enemyIndex > -1) {
                         enemies.splice(enemyIndex, 1);
                         coins += 10;
@@ -121,6 +124,8 @@ function animate() {
                         document.querySelector("#killCount").innerHTML = killCount;
                     }
                 }
+
+                //create explosion at projectile and remove projectile
                 explosions.push(new Sprite({position: {x: projectile.position.x, y: projectile.position.y}, 
                                             imageSrc: 'img/explosion.png', 
                                             frames: {max: 10}, 
@@ -130,16 +135,19 @@ function animate() {
         }
     });
 
+    //update and draw enemies
     for (let i = enemies.length - 1; i >= 0; i --) {
         const enemy = enemies[i];
         enemy.update();
 
+        //if they made it off screen, reduce lives (hearts), remove enemy, update html
         if (enemy.position.x > canvas.width) {
             hearts -= 1;
             enemies.splice(i, 1);
             document.querySelector("#hearts").innerHTML = hearts;
 
-            if (hearts === 0) {
+            //if lives <= 0, pause game, display game over text, play game over sound
+            if (hearts <= 0) {
                 cancelAnimationFrame(animationId);
                 document.querySelector('#gameOver').style.display = 'flex';
                 youDiedAudio.play();
@@ -147,17 +155,19 @@ function animate() {
         }
     }
 
+    //update and draw explosions
     for (let i = explosions.length - 1; i >= 0; i --) {
         const explosion = explosions[i];
         explosion.draw();
 
+        //remove explosion after animation completes
         if (explosion.frames.current >= explosion.frames.max - 1) {
             explosions.splice(i, 1);
         }
     }
 
-    //track total amount of enemies
-    if (enemies.length === 0) {
+    //if all enemies gone, new wave with increased enemy count, speed, and health
+    if (enemies.length <= 0) {
         enemyCount += 2;
         speed += 0.25;
         health += 5;
@@ -165,11 +175,13 @@ function animate() {
     }
 }
 
+//mouse const
 const mouse = {
     x: undefined,
     y: undefined
 };
 
+//event listener for clicking on canvas
 canvas.addEventListener('click', (event) => {
     if (activeTile && !activeTile.isOccupied && coins >= buildingCost) {
         coins -= buildingCost;
