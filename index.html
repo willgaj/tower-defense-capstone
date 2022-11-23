@@ -1,81 +1,28 @@
-<link href="https://fonts.cdnfonts.com/css/optimus-princeps" rel="stylesheet">
-                
-<style>
-    body {
-        background-color: black;
-        font-family: 'OptimusPrincepsSemiBold', sans-serif;
-                                                
-    }
-</style>
+<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/optimus-princeps">
+<link rel="stylesheet" href="styles/styles.css">
 
-<div style="position: relative; display: inline-block;">
+<div class="main-wrapper">
     <canvas></canvas>
-    <div 
-        id= "gameOver"
-        class= "fade-in-text"
-        style=
-        "position: absolute; 
-        top: 0; 
-        bottom: 0; 
-        left: 0; 
-        right: 0; 
-        display: none;
-        flex-direction: column; 
-        align-items: center; 
-        justify-content: center; 
-        font-size: 200; 
-        color: #962a23;
-        -webkit-text-stroke: 3px black;
-        background-image: radial-gradient(black 30%, transparent 100%, transparent 100%);
-        animation: fadeIn 5s;">
+    <div id= "gameOver" class= "fade-in-text">
         <div>YOU DIED</div>
         <div style="font-size: 48; -webkit-text-stroke: .8px black;">Refresh the page to restart. . .</div>
     </div>
-    <button
-        id="beginButton"
-        type="button"
-        style=
-        "position: absolute; 
-        top: 4; 
-        bottom: 0; 
-        left: 4; 
-        right: 0;
-        width: fit-content;
-        height: fit-content;
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        font-size: 72; 
-        color: #962a23;
-        background-color: grey;
-        -webkit-text-stroke: 3px black"
-        >BEGIN
-    </button>
-    <div 
-        style=
-        "position: absolute; 
-        top: 10; 
-        left: 1000; 
-        font-size: 36; 
-        color: #962a23; 
-        -webkit-text-stroke: 0.5px white;
-        display: flex;
-        flex-direction: column;"
-        >
-        <div style="display: flex; align-items: center;">
+    <button id="beginButton" type="button" class="begin-button">BEGIN</button>
+    <div class="status-wrapper">
+        <div class="hearts-wrapper">
             <svg
-            style="width: 35px; color: red; margin-right: 5px;"
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 24 24" 
-            fill="currentColor">
-            <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                class="hearts-svg"
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 24 24" 
+                fill="currentColor">
+                <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
             </svg>
             <div id="hearts">10</div>
-            <div style="margin-left: 10px;">Lives</div>
+            <div class="lives-text">Lives</div>
         </div>
-        <div style="display: flex; align-items: center;">
+        <div class="coins-wrapper">
             <svg 
-                style="width: 35px; color: gold; margin-right: 5px;"
+                class="coins-svg"
                 xmlns="http://www.w3.org/2000/svg" 
                 viewBox="0 0 24 24" 
                 fill="currentColor">
@@ -85,11 +32,11 @@
                 <path d="M12 20.25c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 001.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 001.897 1.384C6.809 19.664 9.315 20.25 12 20.25z" />
             </svg>
             <div id="coins">100</div>
-            <div style="margin-left: 10px;">Coins</div>
+            <div class="coins-text">Coins</div>
         </div>
-        <div style="display: flex; align-items: center;">
+        <div class="kill-count-wrapper">
             <svg 
-                style="width: 35px; color: white; margin-right: 5px;"
+                class="kill-count-svg"
                 xmlns="http://www.w3.org/2000/svg"  
                 viewBox="0 0 1280 1234"
                 fill="currentColor">
@@ -97,7 +44,7 @@
                 <path d="m531 460-38 4c-42 6-65 9-73 12-23 7-40 27-44 51-2 11 0 19 7 38 21 51 21 50 35 65 14 13 27 20 45 24 16 3 30 0 44-9 8-6 12-10 28-30 24-30 45-66 49-81 4-20-1-43-12-57a43 43 0 0 0-41-17zM733 461c-8 2-13 5-20 12s-12 17-15 28c-2 8-2 25 0 33 4 21 42 77 67 103 18 17 37 22 62 15 14-5 25-11 36-22s16-18 21-31l11-27c9-22 11-28 11-37 0-21-10-39-27-51-12-7-19-9-45-13a1921 1921 0 0 0-101-10zM620 623a139 139 0 0 0-53 117c0 19 0 21 2 29 10 34 27 33 59-5 4-5 5-6 4-8v-70a1713 1713 0 0 0-2-71l-10 8zM649 617v141c-2 2 24 29 34 34 6 3 12 3 16 0 7-5 13-18 15-33 2-14 1-39-3-58s-20-49-36-65l-24-20-2 1z"/>
             </svg>
             <div id="killCount">0</div>
-            <div style="margin-left: 10px;">Kills</div>
+            <div class="kill-count-text">Kills</div>
         </div>
     </div>
 </div>

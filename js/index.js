@@ -54,7 +54,7 @@ let enemyCount = 3;
 let hearts = 10;
 let coins = 100;
 let buildingCost = 50;
-let speed = 10;
+let speed = 1;
 let health = 90;
 let killCount = 0;
 

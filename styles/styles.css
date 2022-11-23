@@ -1,0 +1,99 @@
+body {
+    background-color: black;
+    font-family: 'OptimusPrincepsSemiBold', sans-serif;
+}
+
+.main-wrapper {
+    position: relative; 
+    display: inline-block;
+}
+
+.fade-in-text {
+    position: absolute; 
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+    display: none;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 200; 
+    color: #962a23;
+    -webkit-text-stroke: 3px black;
+    background-image: radial-gradient(black 30%, transparent 100%, transparent 100%);
+    animation: fadeIn 5s;
+}
+
+.begin-button {
+    position: absolute; 
+    top: 4; 
+    bottom: 0; 
+    left: 4; 
+    right: 0;
+    width: fit-content;
+    height: fit-content;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 72; 
+    color: #962a23;
+    background-color: grey;
+    -webkit-text-stroke: 3px black;
+}
+
+.status-wrapper {
+    position: absolute; 
+    top: 10; 
+    left: 1000; 
+    font-size: 36; 
+    color: #962a23; 
+    -webkit-text-stroke: 0.5px white;
+    display: flex;
+    flex-direction: column;
+}
+
+.hearts-wrapper {
+    display: flex; 
+    align-items: center;
+}
+
+.hearts-svg {
+    width: 35px; 
+    color: red; 
+    margin-right: 5px;
+}
+
+.lives-text {
+    margin-left: 10px;
+}
+
+.coins-wrapper {
+    display: flex; 
+    align-items: center;
+}
+
+.coins-svg {
+    width: 35px; 
+    color: gold; 
+    margin-right: 5px;
+}
+
+.coins-text {
+    margin-left: 10px;
+}
+
+.kill-count-wrapper {
+    display: flex; 
+    align-items: center;
+}
+
+.kill-count-svg {
+    width: 35px; 
+    color: white; 
+    margin-right: 5px;
+}
+
+.kill-count-text {
+    margin-left: 10px;
+}
