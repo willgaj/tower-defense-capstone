@@ -183,7 +183,11 @@ const mouse = {
 
 //event listener for clicking on canvas
 canvas.addEventListener('click', (event) => {
+
+    //if there is a tile hovered, the tile is not occupied, and you have enough coins
     if (activeTile && !activeTile.isOccupied && coins >= buildingCost) {
+
+        //remove coins, update html, add building, set tile to occupied
         coins -= buildingCost;
         document.querySelector("#coins").innerHTML = coins;
         buildings.push(new Building({
@@ -196,11 +200,17 @@ canvas.addEventListener('click', (event) => {
     }
 })
 
+//event listener for moving mouse in window
 window.addEventListener('mousemove', (event) => {
+
+    //update mouse position
     mouse.x = event.clientX;
     mouse.y = event.clientY;
 
+    //clear last hovered tile
     activeTile = null;
+
+    //iterate through tiles, if mouse is on tile, set as active tile
     for (const tile of placementTiles) {
         if (mouse.x > tile.position.x - tile.size && mouse.x < tile.position.x + tile.size * 2 &&
             mouse.y > tile.position.y - tile.size && mouse.y < tile.position.y + tile.size * 2) {
@@ -210,8 +220,11 @@ window.addEventListener('mousemove', (event) => {
     }
 })
 
+//event listener for clickign the begin button
 let beginButton = document.querySelector("#beginButton");
 beginButton.addEventListener('click', (event) => {
+
+    //on click, hide button and start game loop
     beginButton.style.display = "none";
     animate();
 })

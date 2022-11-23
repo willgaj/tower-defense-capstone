@@ -1,3 +1,4 @@
+//array of map navigation waypoints used by enemies
 const waypoints = [{
     "x": -288,
     "y": 234
