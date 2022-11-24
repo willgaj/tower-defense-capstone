@@ -7,7 +7,7 @@ class Building extends Sprite {
         //super (Sprite) sets various properties for image/animations
         super({
             position, 
-            imageSrc: 'img/towerSW.png', 
+            imageSrc: 'img/canonSW.png', 
             frames: {
                 max: 1
             },
@@ -23,49 +23,95 @@ class Building extends Sprite {
         //radius of turret range
         //target to fire projectiles at
         //elapsed spawn time for turret rate of fire
+        //upgrade level of the building
         this.width = 64;
         this.height = 64;
         this.projectiles = [];
         this.radius = 150;
         this.target = null;
         this.elapsedSpawnTime = 0;
+        this.upgradeLevel = 0;
+        this.imagePath = 'img/canonSW.png'
+
+        //building image paths
+        this.canonNW = 'img/canonNW.png';
+        this.canonNE = 'img/canonNE.png';
+        this.canonSW = 'img/canonSW.png';
+        this.canonSE = 'img/canonSE.png';
+        this.towerNW = 'img/towerNW.png';
+        this.towerNE = 'img/towerNE.png';
+        this.towerSW = 'img/towerSW.png';
+        this.towerSE = 'img/towerSE.png';
     }
 
     //draw building (called through Sprite)
     draw() {
-        super.draw();
+        super.draw(this.imagePath);
     }
 
     //draw and update building values
     update() {
-        this.draw();
+        
+        //if the building has a target
+        if (this.target) {
 
-        //building fires after set time and if a target exists
-        if (this.elapsedSpawnTime % 100 === 0 && this.target) {
-            
-            //set building image based on target location relative to building
+            //set building image based on target location relative to building (NW, NE, SW, SE)
             if (this.target.position.x < this.position.x && this.target.position.y < this.position.y) {
-                super.draw('img/towerNW.png');
+                
+                if (this.upgradeLevel === 0) {
+                    this.imagePath = this.canonNW;
+                }
+                else if (this.upgradeLevel === 1) {
+                    this.imagePath = this.towerNW;
+                }
             }
             else if (this.target.position.x > this.position.x && this.target.position.y < this.position.y) {
-                super.draw('img/towerNE.png');
+                
+                if (this.upgradeLevel === 0) {
+                    this.imagePath = this.canonNE;
+                }
+                else if (this.upgradeLevel === 1) {
+                    this.imagePath = this.towerNE;
+                }
             }
             else if (this.target.position.x < this.position.x && this.target.position.y > this.position.y) {
-                super.draw('img/towerSW.png');
+                
+                if (this.upgradeLevel === 0) {
+                    this.imagePath = this.canonSW;
+                }
+                else if (this.upgradeLevel === 1) {
+                    this.imagePath = this.towerSW;
+                }
             }
             else {
-                super.draw('img/towerSE.png');
+
+                if (this.upgradeLevel === 0) {
+                    this.imagePath = this.canonSE;
+                }
+                else if (this.upgradeLevel === 1) {
+                    this.imagePath = this.towerSE;
+                }
             }
 
-            //create and push projectile to projectiles array with building's target
-            this.projectiles.push(new Projectile({
-                position: {
-                    x: this.position.x - 8,
-                    y: this.position.y - 32
-                },
-                enemy: this.target
-            }));
+            //if elapsed time has occured
+            if (this.elapsedSpawnTime % 100 === 0) {
+                
+                //create and push projectile to projectiles array with building's target
+                this.projectiles.push(new Projectile({
+                    position: {
+                        x: this.position.x - 8,
+                        y: this.position.y - 32
+                    },
+                    enemy: this.target
+                }));
+            }
         }
+        else if (this.upgradeLevel === 1) {
+            this.imagePath = this.towerSW;
+        }
+        
+        //draw image
+        this.draw();
 
         //increment elapsed time
         this.elapsedSpawnTime++;

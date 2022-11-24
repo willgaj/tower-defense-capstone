@@ -38,24 +38,25 @@ youDiedAudio.src = 'sound/youDied.mp3';
 const enemies = [];
 
 //function to spawn enemies, called for each wave with varying quantity, speed, and health
-function spawnEnemies(spawnCount, speed, health) {
+function spawnEnemies(spawnCount, enemySpeed, enemyHealth) {
     for (let i = 1; i < spawnCount + 1; i ++) {
         const xOffset = i * 150;
-        enemies.push(new Enemy({position: {x: waypoints[0].x - xOffset, y: waypoints[0].y}, speed, health}));
+        enemies.push(new Enemy({position: {x: waypoints[0].x - xOffset, y: waypoints[0].y}, enemySpeed, enemyHealth}));
     }
 }
 
 //array to hold current buildings
 const buildings = [];
 
-//bunch of game values
+//bunch of game values set to game start values
 let activeTile = undefined;
 let enemyCount = 3;
 let hearts = 10;
 let coins = 100;
 let buildingCost = 50;
-let speed = 10;
-let health = 90;
+let upgradeCost = 100;
+let enemySpeed = 1;
+let enemyHealth = 90;
 let killCount = 0;
 let waveCount = 1;
 
@@ -79,7 +80,7 @@ function ordinal_suffix_of(i) {
 const explosions = [];
 
 //spawns first wave of enemies
-spawnEnemies(enemyCount, speed, health);
+spawnEnemies(enemyCount, enemySpeed, enemyHealth);
 
 //main game (animation) loop
 function animate() {
@@ -188,9 +189,9 @@ function animate() {
         
         //increase enemy count, speed, and health then spawn new wave
         enemyCount += 2;
-        speed += 0.25;
-        health += 5;
-        spawnEnemies(enemyCount, speed, health);
+        enemySpeed += 0.25;
+        enemyHealth += 5;
+        spawnEnemies(enemyCount, enemySpeed, enemyHealth);
 
         //increment wave count and update html
         waveCount++;
@@ -211,19 +212,38 @@ const mouse = {
 //event listener for clicking on canvas
 canvas.addEventListener('click', (event) => {
 
-    //if there is a tile hovered, the tile is not occupied, and you have enough coins
-    if (activeTile && !activeTile.isOccupied && coins >= buildingCost) {
+    //if there is a tile hovered
+    if (activeTile) {
 
-        //remove coins, update html, add building, set tile to occupied
-        coins -= buildingCost;
-        document.querySelector(".coins-value").innerHTML = coins;
-        buildings.push(new Building({
-            position: {
-                x: activeTile.position.x,
-                y: activeTile.position.y
-            }
-        }));
-        activeTile.isOccupied = true;
+        //if active tile is an unoccupied space, else has a building
+        if (!activeTile.isOccupied  && coins >= buildingCost) {
+
+            //remove coins, update html
+            coins -= buildingCost;
+            document.querySelector(".coins-value").innerHTML = coins;
+
+            //add building, set tile to occupied
+            buildings.push(new Building({
+                position: {
+                    x: activeTile.position.x,
+                    y: activeTile.position.y
+                }
+            }));
+            activeTile.isOccupied = true;
+        }
+        else if (activeTile.isOccupied  && coins >= upgradeCost) {
+
+            //remove coins, update html
+            coins -= upgradeCost;
+            document.querySelector(".coins-value").innerHTML = coins;
+
+            //upgrade building
+            buildings.forEach(building => {
+                if (building.position.x === activeTile.position.x && building.position.y === activeTile.position.y) {
+                    building.upgradeLevel++;
+                }
+            });
+        }
     }
 })
 
@@ -247,7 +267,7 @@ window.addEventListener('mousemove', (event) => {
     }
 })
 
-//event listener for clickign the begin button
+//event listener for clicking the begin button
 let beginButton = document.querySelector(".begin-button");
 beginButton.addEventListener('click', (event) => {
 

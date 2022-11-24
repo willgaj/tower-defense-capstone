@@ -36,7 +36,7 @@ class Sprite {
         };
 
         //if passed value is different than current, replace (this is for buildings' unique images)
-        if (imageSrc.src != this.image.src) {
+        if (imageSrc != this.image.src) {
             this.image.src = imageSrc;
         }
 
