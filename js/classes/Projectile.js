@@ -2,7 +2,7 @@
 class Projectile extends Sprite {
 
     //constructor passed projectile position and target enemy
-    constructor({position = {x: 0, y: 0}, enemy}) {
+    constructor({position = {x: 0, y: 0}, enemy, power = 5}) {
 
         //super (Sprite) sets position and imageSrc
         super({position, imageSrc: 'img/projectile.png'});
@@ -17,6 +17,7 @@ class Projectile extends Sprite {
         };
         this.enemy = enemy;
         this.radius = 10;
+        this.power = power;
     }
 
     //draw and update projectile
@@ -26,10 +27,9 @@ class Projectile extends Sprite {
         //determine angle to target
         const angle = Math.atan2(this.enemy.center.y - this.position.y, this.enemy.center.x - this.position.x);
         
-        //set power (velocity modifier) and set velocities
-        const power = 5;
-        this.velocity.x = Math.cos(angle) * power;
-        this.velocity.y = Math.sin(angle) * power;
+        //set velocities
+        this.velocity.x = Math.cos(angle) * this.power;
+        this.velocity.y = Math.sin(angle) * this.power;
 
         //update projectile position
         this.position.x += this.velocity.x;

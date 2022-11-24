@@ -37,26 +37,26 @@ youDiedAudio.src = 'sound/youDied.mp3';
 //array to hold current enemies
 const enemies = [];
 
-//function to spawn enemies, called for each wave with varying quantity, speed, and health
-function spawnEnemies(spawnCount, enemySpeed, enemyHealth) {
+//function to spawn enemies, called for each wave with varying quantity, enemySpeed, and health
+function spawnEnemies(spawnCount, speed, health) {
     for (let i = 1; i < spawnCount + 1; i ++) {
         const xOffset = i * 150;
-        enemies.push(new Enemy({position: {x: waypoints[0].x - xOffset, y: waypoints[0].y}, enemySpeed, enemyHealth}));
+        enemies.push(new Enemy({position: {x: waypoints[0].x - xOffset, y: waypoints[0].y}, speed, health}));
     }
 }
 
 //array to hold current buildings
 const buildings = [];
 
-//bunch of game values set to game start values
+//bunch of game values
 let activeTile = undefined;
 let enemyCount = 3;
 let hearts = 10;
 let coins = 100;
 let buildingCost = 50;
-let upgradeCost = 100;
-let enemySpeed = 1;
-let enemyHealth = 90;
+let upgradeCost = 10;
+let speed = 1;
+let health = 90;
 let killCount = 0;
 let waveCount = 1;
 
@@ -80,7 +80,7 @@ function ordinal_suffix_of(i) {
 const explosions = [];
 
 //spawns first wave of enemies
-spawnEnemies(enemyCount, enemySpeed, enemyHealth);
+spawnEnemies(enemyCount, speed, health);
 
 //main game (animation) loop
 function animate() {
@@ -189,9 +189,9 @@ function animate() {
         
         //increase enemy count, speed, and health then spawn new wave
         enemyCount += 2;
-        enemySpeed += 0.25;
-        enemyHealth += 5;
-        spawnEnemies(enemyCount, enemySpeed, enemyHealth);
+        speed += 0.25;
+        health += 5;
+        spawnEnemies(enemyCount, speed, health);
 
         //increment wave count and update html
         waveCount++;
@@ -231,16 +231,19 @@ canvas.addEventListener('click', (event) => {
             }));
             activeTile.isOccupied = true;
         }
-        else if (activeTile.isOccupied  && coins >= upgradeCost) {
-
-            //remove coins, update html
-            coins -= upgradeCost;
-            document.querySelector(".coins-value").innerHTML = coins;
+        else if (activeTile.isOccupied && coins >= upgradeCost) {
 
             //upgrade building
             buildings.forEach(building => {
                 if (building.position.x === activeTile.position.x && building.position.y === activeTile.position.y) {
-                    building.upgradeLevel++;
+                    if (building.upgradeLevel == 0 && coins >= upgradeCost) {
+                        building.upgradeLevel++;
+                        building.radius += 50;
+
+                        //remove coins, update html
+                        coins -= upgradeCost;
+                        document.querySelector(".coins-value").innerHTML = coins;
+                    }
                 }
             });
         }
@@ -264,6 +267,25 @@ window.addEventListener('mousemove', (event) => {
             activeTile = tile;
             break;
         }
+    }
+
+    //if the tile has a building on it, set hovered flag to true
+    if (activeTile != null) {
+
+        //find hovered building
+        buildings.forEach(building => {
+            if (building.position.x === activeTile.position.x && building.position.y === activeTile.position.y) {
+                building.hovered = true;        
+            }
+            else {
+                building.hovered = false;
+            }
+        });
+    }
+    else {
+        buildings.forEach(building => {
+            building.hovered = false;
+        });
     }
 })
 
