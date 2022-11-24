@@ -71,7 +71,7 @@ class Building extends Sprite {
         if (this.target) {
 
             //set building image based on target location relative to building (NW, NE, SW, SE)
-            if (this.target.position.x < this.position.x && this.target.position.y < this.position.y) {
+            if (this.target.center.x < this.position.x && this.target.center.y < this.position.y) {
                 
                 if (this.upgradeLevel === 0) {
                     this.imagePath = this.canonNW;
@@ -80,7 +80,7 @@ class Building extends Sprite {
                     this.imagePath = this.towerNW;
                 }
             }
-            else if (this.target.position.x > this.position.x && this.target.position.y < this.position.y) {
+            else if (this.target.center.x > this.position.x && this.target.center.y < this.position.y) {
                 
                 if (this.upgradeLevel === 0) {
                     this.imagePath = this.canonNE;
@@ -89,7 +89,7 @@ class Building extends Sprite {
                     this.imagePath = this.towerNE;
                 }
             }
-            else if (this.target.position.x < this.position.x && this.target.position.y > this.position.y) {
+            else if (this.target.center.x < this.position.x && this.target.center.y > this.position.y) {
                 
                 if (this.upgradeLevel === 0) {
                     this.imagePath = this.canonSW;
