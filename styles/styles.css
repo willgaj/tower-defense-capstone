@@ -47,10 +47,10 @@ body {
     -webkit-text-stroke: 3px black;
 }
 
-.status-wrapper {
+.player-status-wrapper {
     position: absolute; 
     top: 10; 
-    left: 1000; 
+    left: 700; 
     font-size: 36; 
     color: #962a23; 
     -webkit-text-stroke: 0.5px white;
@@ -66,10 +66,10 @@ body {
 .hearts-svg {
     width: 35px; 
     color: red; 
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
-.lives-text {
+.hearts-text {
     margin-left: 10px;
 }
 
@@ -81,10 +81,36 @@ body {
 .coins-svg {
     width: 35px; 
     color: gold; 
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .coins-text {
+    margin-left: 10px;
+}
+
+.game-status-wrapper {
+    position: absolute; 
+    top: 10; 
+    left: 1000; 
+    font-size: 36; 
+    color: #962a23; 
+    -webkit-text-stroke: 0.5px white;
+    display: flex;
+    flex-direction: column;
+}
+
+.wave-count-wrapper {
+    display: flex; 
+    align-items: center;
+}
+
+.wave-count-svg {
+    width: 35px; 
+    color: #0077BE; 
+    margin-right: 10px;
+}
+
+.wave-count-text {
     margin-left: 10px;
 }
 
@@ -96,7 +122,7 @@ body {
 .kill-count-svg {
     width: 35px; 
     color: white; 
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .kill-count-text {

@@ -54,9 +54,26 @@ let enemyCount = 3;
 let hearts = 10;
 let coins = 100;
 let buildingCost = 50;
-let speed = 1;
+let speed = 10;
 let health = 90;
 let killCount = 0;
+let waveCount = 1;
+
+//function to determine suffix of wave count number
+function ordinal_suffix_of(i) {
+    let j = i % 10,
+        k = i % 100;
+    if (j == 1 && k != 11) {
+        return i + "st";
+    }
+    if (j == 2 && k != 12) {
+        return i + "nd";
+    }
+    if (j == 3 && k != 13) {
+        return i + "rd";
+    }
+    return i + "th";
+}
 
 //array to hold active explosions
 const explosions = [];
@@ -166,12 +183,22 @@ function animate() {
         }
     }
 
-    //if all enemies gone, new wave with increased enemy count, speed, and health
+    //if all enemies gone
     if (enemies.length <= 0) {
+        
+        //increase enemy count, speed, and health then spawn new wave
         enemyCount += 2;
         speed += 0.25;
         health += 5;
         spawnEnemies(enemyCount, speed, health);
+
+        //increment wave count and update html
+        waveCount++;
+        document.querySelector(".wave-count-value").innerHTML = ordinal_suffix_of(waveCount);
+
+        //add interest gold and update html
+        coins += Math.round(coins * 0.05);
+        document.querySelector(".coins-value").innerHTML = coins;
     }
 }
 
