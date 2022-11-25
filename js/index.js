@@ -106,26 +106,6 @@ function animate() {
         tile.update(mouse);
     });
 
-    //update and draw enemies
-    for (let i = enemies.length - 1; i >= 0; i --) {
-        const enemy = enemies[i];
-        enemy.update();
-
-        //if they made it off screen, reduce lives (hearts), remove enemy, update html
-        if (enemy.position.x > canvas.width) {
-            hearts -= 1;
-            enemies.splice(i, 1);
-            document.querySelector(".hearts-value").innerHTML = hearts;
-
-            //if lives <= 0, pause game, display game over text, play game over sound
-            if (hearts <= 0) {
-                cancelAnimationFrame(animationId);
-                document.querySelector('.fade-in-text').style.display = 'flex';
-                youDiedAudio.play();
-            }
-        }
-    }
-
     //update and draw buildings
     buildings.forEach(building => {
         building.update();
@@ -183,6 +163,26 @@ function animate() {
             }
         }
     });
+
+    //update and draw enemies
+    for (let i = enemies.length - 1; i >= 0; i --) {
+        const enemy = enemies[i];
+        enemy.update();
+
+        //if they made it off screen, reduce lives (hearts), remove enemy, update html
+        if (enemy.position.x > canvas.width) {
+            hearts -= 1;
+            enemies.splice(i, 1);
+            document.querySelector(".hearts-value").innerHTML = hearts;
+
+            //if lives <= 0, pause game, display game over text, play game over sound
+            if (hearts <= 0) {
+                cancelAnimationFrame(animationId);
+                document.querySelector('.fade-in-text').style.display = 'flex';
+                youDiedAudio.play();
+            }
+        }
+    }
 
     //update and draw explosions
     for (let i = explosions.length - 1; i >= 0; i --) {
