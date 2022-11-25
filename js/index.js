@@ -51,14 +51,25 @@ const buildings = [];
 //bunch of game values
 let activeTile = undefined;
 let enemyCount = 3;
+let enemyCountIncrease = 2;
 let hearts = 10;
 let coins = 100;
 let buildingCost = 50;
 let upgradeCost = 10;
 let speed = 1;
+let speedIncrease = 0.25;
 let health = 90;
+let healthIncrease = 5;
 let killCount = 0;
 let waveCount = 1;
+
+//update html to game start values
+document.querySelector(".enemy-count-value").innerHTML = enemyCount + enemyCountIncrease;
+document.querySelector(".coins-value").innerHTML = coins;
+document.querySelector(".enemy-speed-value").innerHTML = speed + speedIncrease;
+document.querySelector(".enemy-health-value").innerHTML = health + healthIncrease;
+document.querySelector(".kill-count-value").innerHTML = killCount;
+document.querySelector(".wave-count-value").innerHTML = waveCount;
 
 //function to determine suffix of wave count number
 function ordinal_suffix_of(i) {
@@ -94,6 +105,26 @@ function animate() {
     placementTiles.forEach(tile => {
         tile.update(mouse);
     });
+
+    //update and draw enemies
+    for (let i = enemies.length - 1; i >= 0; i --) {
+        const enemy = enemies[i];
+        enemy.update();
+
+        //if they made it off screen, reduce lives (hearts), remove enemy, update html
+        if (enemy.position.x > canvas.width) {
+            hearts -= 1;
+            enemies.splice(i, 1);
+            document.querySelector(".hearts-value").innerHTML = hearts;
+
+            //if lives <= 0, pause game, display game over text, play game over sound
+            if (hearts <= 0) {
+                cancelAnimationFrame(animationId);
+                document.querySelector('.fade-in-text').style.display = 'flex';
+                youDiedAudio.play();
+            }
+        }
+    }
 
     //update and draw buildings
     buildings.forEach(building => {
@@ -153,26 +184,6 @@ function animate() {
         }
     });
 
-    //update and draw enemies
-    for (let i = enemies.length - 1; i >= 0; i --) {
-        const enemy = enemies[i];
-        enemy.update();
-
-        //if they made it off screen, reduce lives (hearts), remove enemy, update html
-        if (enemy.position.x > canvas.width) {
-            hearts -= 1;
-            enemies.splice(i, 1);
-            document.querySelector(".hearts-value").innerHTML = hearts;
-
-            //if lives <= 0, pause game, display game over text, play game over sound
-            if (hearts <= 0) {
-                cancelAnimationFrame(animationId);
-                document.querySelector('.fade-in-text').style.display = 'flex';
-                youDiedAudio.play();
-            }
-        }
-    }
-
     //update and draw explosions
     for (let i = explosions.length - 1; i >= 0; i --) {
         const explosion = explosions[i];
@@ -188,14 +199,19 @@ function animate() {
     if (enemies.length <= 0) {
         
         //increase enemy count, speed, and health then spawn new wave
-        enemyCount += 2;
-        speed += 0.25;
-        health += 5;
+        enemyCount += enemyCountIncrease;
+        speed += speedIncrease;
+        health += healthIncrease;
         spawnEnemies(enemyCount, speed, health);
+
+        //update next-wave html
+        document.querySelector(".enemy-count-value").innerHTML = enemyCount + enemyCountIncrease;
+        document.querySelector(".enemy-health-value").innerHTML = health + healthIncrease;
+        document.querySelector(".enemy-speed-value").innerHTML = speed + speedIncrease;
 
         //increment wave count and update html
         waveCount++;
-        document.querySelector(".wave-count-value").innerHTML = ordinal_suffix_of(waveCount);
+        document.querySelector(".wave-count-value").innerHTML = waveCount;
 
         //add interest gold and update html
         coins += Math.round(coins * 0.05);

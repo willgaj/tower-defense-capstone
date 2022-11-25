@@ -127,7 +127,8 @@ class Building extends Sprite {
                             x: this.position.x - 0,
                             y: this.position.y - 32
                         },
-                        enemy: this.target
+                        enemy: this.target,
+                        power: 10
                     }));
 
                     this.projectiles.push(new Projectile({
