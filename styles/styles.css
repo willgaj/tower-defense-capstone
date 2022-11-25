@@ -22,7 +22,12 @@ body {
     color: #962a23;
     -webkit-text-stroke: 3px black;
     background-image: radial-gradient(black 30%, transparent 100%, transparent 100%);
-    animation: fadeIn 5s;
+    animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0;};
+    100% {opacity: 1;};
 }
 
 .refresh-text {
@@ -47,15 +52,20 @@ body {
     -webkit-text-stroke: 3px black;
 }
 
-.player-status-wrapper {
+.ui-wrapper {
+    left: 725;
     position: absolute; 
-    top: 10; 
-    left: 700; 
+    top: 10;
     font-size: 36; 
     color: #962a23; 
     -webkit-text-stroke: 0.5px white;
     display: flex;
+}
+
+.player-status-wrapper {
+    display: flex;
     flex-direction: column;
+    margin-right: 50;
 }
 
 .hearts-wrapper {
@@ -69,10 +79,6 @@ body {
     margin-right: 10px;
 }
 
-.hearts-text {
-    margin-left: 10px;
-}
-
 .coins-wrapper {
     display: flex; 
     align-items: center;
@@ -84,19 +90,10 @@ body {
     margin-right: 10px;
 }
 
-.coins-text {
-    margin-left: 10px;
-}
-
 .game-status-wrapper {
-    position: absolute; 
-    top: 10; 
-    left: 1000; 
-    font-size: 36; 
-    color: #962a23; 
-    -webkit-text-stroke: 0.5px white;
     display: flex;
     flex-direction: column;
+    margin-right: 50;
 }
 
 .wave-count-wrapper {
@@ -110,10 +107,6 @@ body {
     margin-right: 10px;
 }
 
-.wave-count-text {
-    margin-left: 10px;
-}
-
 .kill-count-wrapper {
     display: flex; 
     align-items: center;
@@ -125,6 +118,51 @@ body {
     margin-right: 10px;
 }
 
-.kill-count-text {
-    margin-left: 10px;
+.next-wave-wrapper {
+    left: 1100;
+    position: absolute; 
+    top: 10;
+    font-size: 30; 
+    color: #962a23; 
+    -webkit-text-stroke: 0.5px white;
+    display: flex;
+    flex-direction: column;
+}
+
+.next-wave-text {
+    -webkit-text-stroke: 0.5px white;
+    text-decoration: underline;
+}
+
+.enemy-count-wrapper {
+    display: flex; 
+    align-items: center;
+}
+
+.enemy-count-svg {
+    width: 35px; 
+    color: grey; 
+    margin-right: 10px;
+}
+
+.enemy-health-wrapper {
+    display: flex; 
+    align-items: center;
+}
+
+.enemy-health-svg {
+    width: 35px; 
+    color: darkred; 
+    margin-right: 10px;
+}
+
+.enemy-speed-wrapper {
+    display: flex; 
+    align-items: center;
+}
+
+.enemy-speed-svg {
+    width: 35px; 
+    color: white; 
+    margin-right: 10px;
 }
