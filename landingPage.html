@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="landingPage.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="icon" href="saucerLoading.gif" />
+    <title>U.F.O. Sighting</title>
+</head>
+
+<body>
+
+     <!-- Preloader Screen -->
+  <div id="overlayer"></div>
+  <div class="preloader">
+    <div class="loader">
+      <span class="loader-inner"></span>
+    </div>
+  </div>
+
+    <div class="container">
+        <div class="forms-container">
+            <div class="shift-shift">
+                <form action="#" class="in-form">
+                    <!-- <h2 class="title">Employer</h2> -->
+                    <img src="UFOSighting.png" class="image" alt="U.F.O. Sighting Title" />
+                    <div style="padding: 10%;">
+                        <p>A radio message from an unknown source was received: </p>
+                           <h4>⊑⎍⋔⏃⋏⌇! ⍙⟒ ⍙⟟⌰⌰ ⏁⏃☍⟒ ⍜⎐⟒⍀ ⊬⍜⎍⍀ ☊⟟⏁⊬!</h4>
+                    </div>
+
+                    <input type="submit" formaction="index.html" class="btn" value="Play The Game" />
+
+                    <div>
+                        <br>
+                        <div class="footer">
+                            <h6>Copyright &copy;2022 U.F.O. Sighting</h6>
+                            <h6>Created by CWK Studios</h6>
+                        </div>
+                    </div>
+                </form>
+                
+
+                <form action="#" class="out-form">
+     <div style="padding-left: 10%; padding-right: 10%; ">
+
+        <h3><strong>How To Play</strong></h3>
+        <br>
+        <img src="turretShots.png" class="image" alt="Turret Shooting Saucers" width="100" height="260" />
+   
+        <ul>
+            <br>
+                            <li>Use your mouse to place defensive turrets on the board. Legal positions are highlighted with a white circle.</li>
+                            <li>Each turret costs 50 gold. You will earn 10 gold for each enemy destroyed.</li>
+                            <li>Enemies will travel along the road. Fortunately, most enemy saucers react poorly to water, and have difficulty passing over natural terrain. </li>
+                            <li>You have 10 hearts. Each enemy that enters the city costs you 1 heart.</li>
+                            <li>If you need to pause, navigate to another tab in your browser. The game will only run if the tab is active.</li>
+                            <li>If you run out of hearts, your game is over. Can you beat your high score? </li>
+                        </ul>
+                    </div>
+                    <br>
+                    <!-- NOTE formaction allows you to attribute specifies the URL of the file that 
+                        will process the input control when the form is submitted. -->
+                    <input type="submit" formaction="contactUs.html" class="btn" value="Contact Us" />
+                    <br>
+                    <div class="footer">
+                        <h6>Copyright &copy;2022 U.F.O. Sighting</h6>
+                        <h6>Created by CWK Studios</h6>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>Invasion!</h3>
+                    <br>
+                    <p>U.F.O.s have been sighted over the countryside!</p>
+                    <p>Their intentions are clear - you must stop them before they reach our cities.</p> 
+                    <p>Fortify the surrounding area with weapons, and stop the hostile alien advance.</p> 
+                    <p>Your people are counting on you!</p>
+                    <br>
+                    <button class="btn transparent" id="learn-more-btn">
+                        Learn More
+                    </button>
+                </div>
+<br>
+                <img src="invasionMap.png" class="image" alt="U.F.O. Invasion Map" />
+
+            </div>
+            <div class="panel right-panel">
+                <div class="content">
+                    <h3><strong>U.F.O. Sighting</strong></h3>
+                    <br>
+
+                    <p>The white dots near the roads are legal positions to build a defensive turret. Each turret costs 50 gold, and you will earn 10 gold for each U.F.O. you destroy. Place wisely!</p>
+                    <p>These aliens are crafty and learn from their mistakes. Each wave will be stronger than the last. If 10 saucers make their way into the city, all hope (and your game) is lost!</p>
+                    <p> Are you ready to defend the city?</p>
+                    <br>
+                    <button class="btn transparent" id="click-here-btn">
+                        Click Here
+                    </button>
+        
+                 
+                </div>
+         
+            </div>
+        </div>
+    </div>
+
+    <!--NOTE Connection to javascript file-->
+    <script src="landingPage.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script>
+        $(window).load(function () {
+          $(".preloader").delay(1500).fadeOut("slow");
+          $("#overlayer").delay(1500).fadeOut("slow");
+        })
+      </script>
+</body>
+
+</html>
