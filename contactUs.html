@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="saucerLoading.gif" />
+    <title>U.F.O. Sighting | </title>
+    <link rel="stylesheet" href="contactUs.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+</head>
+
+<body>
+
+    <!-- Preloader Screen -->
+    <div id="overlayer"></div>
+    <div class="preloader">
+        <div class="loader">
+            <span class="loader-inner"></span>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <section>
+            <div class="section-heading-top">
+                <h2 data-aos="fade-up" data-aos-duration="1000">The Team</h2>
+            </div>
+            <p data-aos="fade" data-aos-duration="800" data-aos-delay="400">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta saepe enim debitis aliquam fugit, vel,
+                expedita fugiat sunt ea hic veritatis eligendi deleniti eum maxime temporibus eos voluptatibus est
+                mollitia?
+            </p>
+
+        </section>
+
+        <div class="section-container">
+            <section>
+                <div class="section-heading">
+                    <h2 data-aos="fade-left" data-aos-duration="1000">Craig Reade</h2>
+                </div>
+                <p data-aos="fade" data-aos-duration="800" data-aos-delay="400">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis commodi debitis odit iusto officiis
+                    mollitia. Quam inventore amet accusamus at delectus culpa distinctio odit, nulla vitae sapiente
+                    ullam illum neque.
+                </p>
+                <img data-aos="fade-right" data-aos-duration="1500" data-aos-delay="200" src="craigReade.png"
+                    alt="Craig Reade's Picture" />
+            </section>
+
+            <section>
+                <div class="section-heading">
+                    <h2 data-aos="fade-up" data-aos-duration="1000">Will Gajewski</h2>
+                </div>
+                <p data-aos="fade" data-aos-duration="800" data-aos-delay="400">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae architecto quas, pariatur velit
+                    voluptatum est explicabo, numquam nam necessitatibus quis voluptas asperiores minima, omnis minus
+                    illum dicta in deleniti voluptatibus?
+                </p>
+                <img data-aos="fade" data-aos-duration="1500" data-aos-delay="200" src="willGajewski.jpeg"
+                    alt="Will Gajewski's Picture" />
+            </section>
+
+            <section>
+                <div class="section-heading">
+                    <h2 data-aos="fade-right" data-aos-duration="1000">Kevin Go</h2>
+                </div>
+                <p data-aos="fade" data-aos-duration="800" data-aos-delay="400">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus debitis ut explicabo tenetur,
+                    omnis sed nesciunt amet aut temporibus necessitatibus, magni illo tempore quam impedit fuga
+                    consequatur quasi quod eius?
+                </p>
+                <img data-aos="fade-left" data-aos-duration="1500" data-aos-delay="200" src="kevinGo.jpg"
+                    alt="Kevin Go's Picture" />
+            </section>
+            <section>
+                <div class="section-heading-bottom">
+                    <h2 data-aos="fade-up" data-aos-duration="1000">Contact Us</h2>
+                </div>
+                <div class="container">
+                    <form action="action_page.php">
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="fname">First Name</label>
+                            </div>
+                            <div class="col-75">
+                                <input type="text" id="fname" name="firstname"
+                                    placeholder="Please enter your first name.">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="lname">Last Name</label>
+                            </div>
+                            <div class="col-75">
+                                <input type="text" id="lname" name="lastname"
+                                    placeholder="Please enter your last name.">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="email">E-mail Address</label>
+                            </div>
+                            <div class="col-75">
+                                <input type="text" id="email" name="email"
+                                    placeholder="Please enter your e-mail address.">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="subject">Subject</label>
+                            </div>
+                            <div class="col-75">
+                                <textarea id="subject" name="subject" placeholder="Message for us."
+                                    style="height:200px"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input type="submit" class="btn" value="SUBMIT">
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+        <script>
+            AOS.init();
+        </script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script>
+            $(window).load(function () {
+                $(".preloader").delay(1500).fadeOut("slow");
+                $("#overlayer").delay(1500).fadeOut("slow");
+            })
+        </script>
+</body>
+
+</html>
