@@ -1,5 +1,12 @@
+@font-face
+{
+    font-family: 'venusRising';
+    src: url('../font/venusRising.ttf') format("opentype");
+}
+
 body {
     background-color: black;
+    font-family: "venusRising";
 }
 
 .main-wrapper {
@@ -35,6 +42,7 @@ body {
 }
 
 .begin-button {
+    font-family: "venusRising";
     position: absolute; 
     top: 4; 
     bottom: 0; 
@@ -45,7 +53,7 @@ body {
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    font-size: 72; 
+    font-size: 55; 
     color: #962a23;
     background-color: grey;
     -webkit-text-stroke: 3px black;
@@ -55,7 +63,7 @@ body {
     left: 725;
     position: absolute; 
     top: 10;
-    font-size: 36; 
+    font-size: 30; 
     color: #962a23; 
     -webkit-text-stroke: 0.5px white;
     display: flex;
