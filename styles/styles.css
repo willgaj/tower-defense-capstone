@@ -1,6 +1,5 @@
 body {
     background-color: black;
-    font-family: 'OptimusPrincepsSemiBold', sans-serif;
 }
 
 .main-wrapper {
@@ -165,4 +164,14 @@ body {
     width: 35px; 
     color: white; 
     margin-right: 10px;
+}
+
+.building-costs {
+    display: flex;
+    flex-direction: row;
+    font-size: 30; 
+    color: #962a23;
+    -webkit-text-stroke: 0.5px white;
+    align-items: center;
+    margin-top: 10;
 }

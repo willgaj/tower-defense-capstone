@@ -48,14 +48,28 @@ function spawnEnemies(spawnCount, speed, health) {
 //array to hold current buildings
 const buildings = [];
 
-//bunch of game values
+/* bunch of game properties set to game start values
+ * tile being hovered
+ * enemy count
+ * amount to increase enemy count by each wave
+ * player lives
+ * coins for purchasing/upgrading towers
+ * cost of building a new tower
+ * cost of upgrading a tower
+ * speed of enemies
+ * enemy speed increase per wave
+ * enemy health
+ * enemy health increase per wave
+ * player kill count
+ * current wave
+*/
 let activeTile = undefined;
-let enemyCount = 3;
+let enemyCount = 4;
 let enemyCountIncrease = 2;
 let hearts = 10;
-let coins = 100;
+let coins = 125;
 let buildingCost = 50;
-let upgradeCost = 10;
+let upgradeCost = 100;
 let speed = 1;
 let speedIncrease = 0.25;
 let health = 90;
