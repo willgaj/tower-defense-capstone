@@ -43,6 +43,7 @@ class Building extends Sprite {
         this.towerNE = 'img/towerNE.png';
         this.towerSW = 'img/towerSW.png';
         this.towerSE = 'img/towerSE.png';
+		this.finalTurret = 'img/finalturret.png'
     }
 
     //draw building (called through Sprite)
@@ -79,6 +80,9 @@ class Building extends Sprite {
                 else if (this.upgradeLevel === 1) {
                     this.imagePath = this.towerNW;
                 }
+                else if (this.upgradeLevel === 2) {
+                    this.imagePath = this.finalTurret;
+                }
             }
             else if (this.target.center.x > this.position.x && this.target.center.y < this.position.y) {
                 
@@ -87,6 +91,9 @@ class Building extends Sprite {
                 }
                 else if (this.upgradeLevel === 1) {
                     this.imagePath = this.towerNE;
+                }
+                else if (this.upgradeLevel === 2) {
+                    this.imagePath = this.finalTurret;
                 }
             }
             else if (this.target.center.x < this.position.x && this.target.center.y > this.position.y) {
@@ -97,6 +104,9 @@ class Building extends Sprite {
                 else if (this.upgradeLevel === 1) {
                     this.imagePath = this.towerSW;
                 }
+                else if (this.upgradeLevel === 2) {
+                    this.imagePath = this.finalTurret;
+                }
             }
             else {
 
@@ -105,6 +115,9 @@ class Building extends Sprite {
                 }
                 else if (this.upgradeLevel === 1) {
                     this.imagePath = this.towerSE;
+                }
+                else if (this.upgradeLevel === 2) {
+                    this.imagePath = this.finalTurret;
                 }
             }
 
@@ -140,10 +153,42 @@ class Building extends Sprite {
                         power: 10
                     }));
                 } 
+				else if (this.upgradeLevel === 2) {
+                    this.projectiles.push(new Projectile({
+                        position: {
+                            x: this.position.x - 0,
+                            y: this.position.y - 32
+                        },
+                        enemy: this.target,
+                        power: 20
+                    }));
+
+                    this.projectiles.push(new Projectile({
+                        position: {
+                            x: this.position.x - 12,
+                            y: this.position.y - 32
+                        },
+                        enemy: this.target,
+                        power: 20
+                    }));
+					
+
+                    this.projectiles.push(new Projectile({
+                        position: {
+                            x: this.position.x - 24,
+                            y: this.position.y - 32
+                        },
+                        enemy: this.target,
+                        power: 20
+                    }));
+                } 
             }
         }
         else if (this.upgradeLevel === 1) {
             this.imagePath = this.towerSW;
+        }
+        else if (this.upgradeLevel === 2) {
+            this.imagePath = this.finalTurret;
         }
         
         //draw image
