@@ -70,6 +70,7 @@ let hearts = 10;
 let coins = 125;
 let buildingCost = 50;
 let upgradeCost = 100;
+let finalUpgradeCost = 200;
 let speed = 1;
 let speedIncrease = 0.25;
 let health = 90;
@@ -261,17 +262,38 @@ canvas.addEventListener('click', (event) => {
             }));
             activeTile.isOccupied = true;
         }
-        else if (activeTile.isOccupied && coins >= upgradeCost) {
+        else if (activeTile.isOccupied && !activeTile.levelOne && coins >= upgradeCost) {
 
             //upgrade building
             buildings.forEach(building => {
                 if (building.position.x === activeTile.position.x && building.position.y === activeTile.position.y) {
+                    
                     if (building.upgradeLevel == 0 && coins >= upgradeCost) {
-                        building.upgradeLevel++;
+						building.upgradeLevel++;
                         building.radius += 50;
+						activeTile.levelOne = true;
 
                         //remove coins, update html
                         coins -= upgradeCost;
+                        document.querySelector(".coins-value").innerHTML = coins;
+                    }
+                }
+            });
+        }
+		else if (activeTile.isOccupied && activeTile.levelOne && coins >= finalUpgradeCost) {
+
+            //upgade building
+            buildings.forEach(building => {
+                if (building.position.x === activeTile.position.x && building.position.y === activeTile.position.y) {
+                    
+					if (building.upgradeLevel == 1 && coins >= finalUpgradeCost) {
+                    
+                        building.upgradeLevel++;
+                        building.radius += 50;
+						activeTile.levelOne = false;
+
+                        //remove coins, update html
+                        coins -= finalUpgradeCost;
                         document.querySelector(".coins-value").innerHTML = coins;
                     }
                 }

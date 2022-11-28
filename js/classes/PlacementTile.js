@@ -13,6 +13,7 @@ class PlacementTile {
         this.size = 10;
         this.color = 'rgba(255, 255, 255, .15)';
         this.occupied = false;
+		this.levelOne = false;
     }
 
     //draw tile marker

@@ -129,7 +129,7 @@ body {
     left: 1100;
     position: absolute; 
     top: 10;
-    font-size: 30; 
+    font-size: 18; 
     color: #962a23; 
     -webkit-text-stroke: 0.5px white;
     display: flex;
@@ -180,6 +180,15 @@ body {
     font-size: 30; 
     color: #962a23;
     -webkit-text-stroke: 0.5px white;
+    align-items: center;
+    margin-top: 10;
+}
+
+.resize-instructions {
+    display: flex;
+    flex-direction: row;
+    font-size: 16; 
+    color: #ffffff;
     align-items: center;
     margin-top: 10;
 }
