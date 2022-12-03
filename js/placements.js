@@ -1,4 +1,4 @@
-//2d array of all valid (1) and invalid (1) building placement locations
+//Game.01.c: 2d array of all valid (1) and invalid (1) building placement locations
 const placements = [
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

@@ -1,10 +1,10 @@
-//class for user placeable towers
+//2.03: class for user placeable towers
 class Building extends Sprite {
 
     //constructor is passed a postion
     constructor({position= {x: 0, y: 0}}) {
 
-        //super (Sprite) sets various properties for image/animations
+        //2.03.a: super (Sprite) sets various properties for image/animations
         super({
             position, 
             imageSrc: 'img/canonSW.png', 
@@ -17,6 +17,7 @@ class Building extends Sprite {
             }
         });
 
+        //2.03.b-i: 
         //class properties
         //width & height of tower
         //array of projectiles fired from tower
@@ -46,12 +47,12 @@ class Building extends Sprite {
 		this.finalTurret = 'img/finalturret.png'
     }
 
-    //draw building (called through Sprite)
+    //2.03.j: draw building (called through Sprite)
     draw() {
         super.draw(this.imagePath);
     }
 
-    //draw and update building values
+    //2.03.k: draw and update building values
     update() {
         
         

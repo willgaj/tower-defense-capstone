@@ -1,12 +1,13 @@
-//class for enemy saucers
+//2.02: class for enemy saucers
 class Enemy extends Sprite {
 
     //constructor is passed a position, speed, and health of the enemy
     constructor({position = {x: 0, y: 0}, speed, health}) {
         
-        //super (Sprite) sets position, imageSrc, and frames of animation
+        //2.02.a: super (Sprite) sets position, imageSrc, and frames of animation
         super({position, imageSrc: 'img/saucer.png', frames: {max: 4}});
 
+        //2.02.b-h: 
         //enemy properties
         //width & height of the enemy
         //current waypoint index for navigating map
@@ -31,7 +32,7 @@ class Enemy extends Sprite {
         this.speed = speed;
     }
 
-    //draw the enemy (called through Sprite)
+    //2.02.i: draw the enemy (called through Sprite) and health bar
     draw() {
         super.draw();
 
@@ -42,7 +43,7 @@ class Enemy extends Sprite {
         c.fillRect(this.position.x, this.position.y - 15, this.width * this.health / this.maxHealth, 10);
     }
 
-    //draw and update enemy values
+    //2.02.j: draw and update enemy values
     update() {
         this.draw();
 

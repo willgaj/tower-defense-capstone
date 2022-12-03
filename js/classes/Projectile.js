@@ -1,12 +1,13 @@
-//class for projectiles
+//2.04: class for projectiles
 class Projectile extends Sprite {
 
     //constructor passed projectile position and target enemy
     constructor({position = {x: 0, y: 0}, enemy, power = 5}) {
 
-        //super (Sprite) sets position and imageSrc
+        //2.04.a: super (Sprite) sets position and imageSrc
         super({position, imageSrc: 'img/projectile.png'});
 
+        //2.04.b-e
         //projectile properties
         //velocity of projectile
         //target enemy
@@ -20,7 +21,7 @@ class Projectile extends Sprite {
         this.power = power;
     }
 
-    //draw and update projectile
+    //2.04.f: draw and update projectile
     update() {
         this.draw();
 

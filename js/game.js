@@ -2,12 +2,51 @@
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
-//setting canvas size
+//function to determine suffix of wave count number
+function ordinal_suffix_of(i) {
+    let j = i % 10,
+        k = i % 100;
+    if (j == 1 && k != 11) {
+        return i + "st";
+    }
+    if (j == 2 && k != 12) {
+        return i + "nd";
+    }
+    if (j == 3 && k != 13) {
+        return i + "rd";
+    }
+    return i + "th";
+}
+
+//function to spawn enemies, called for each wave with varying quantity, enemySpeed, and health
+function spawnEnemies(spawnCount, speed, health) {
+    for (let i = 1; i < spawnCount + 1; i ++) {
+        const xOffset = i * 150;
+        enemies.push(new Enemy({position: {x: waypoints[0].x - xOffset, y: waypoints[0].y}, speed, health}));
+    }
+}
+
+//2.01.a: setting canvas size
 canvas.width = 1280;
 canvas.height = 640;
 
-//array to hold all tower placement positions
+//2.01.c: array to hold all tower placement positions
 const placementTiles = [];
+
+//array to hold current enemies
+const enemies = [];
+
+//array to hold current buildings
+const buildings = [];
+
+//array to hold active explosions
+const explosions = [];
+
+//mouse const
+const mouse = {
+    x: undefined,
+    y: undefined
+};
 
 //determining valid placement positons on grid
 placements.forEach((row, y) => {
@@ -23,7 +62,7 @@ placements.forEach((row, y) => {
     })
 })
 
-//loading map image
+//2.01.d: loading map image
 const image = new Image();
 image.src = 'img/map.png';
 image.onload = () => {
@@ -34,21 +73,7 @@ image.onload = () => {
 const youDiedAudio = new Audio();
 youDiedAudio.src = 'sound/youDied.mp3';
 
-//array to hold current enemies
-const enemies = [];
-
-//function to spawn enemies, called for each wave with varying quantity, enemySpeed, and health
-function spawnEnemies(spawnCount, speed, health) {
-    for (let i = 1; i < spawnCount + 1; i ++) {
-        const xOffset = i * 150;
-        enemies.push(new Enemy({position: {x: waypoints[0].x - xOffset, y: waypoints[0].y}, speed, health}));
-    }
-}
-
-//array to hold current buildings
-const buildings = [];
-
-/* bunch of game properties set to game start values
+/* 2.01.e: bunch of game properties set to game start values
  * tile being hovered
  * enemy count
  * amount to increase enemy count by each wave
@@ -78,7 +103,7 @@ let healthIncrease = 5;
 let killCount = 0;
 let waveCount = 1;
 
-//update html to game start values
+//2.01.f: update html to game start values
 document.querySelector(".enemy-count-value").innerHTML = enemyCount + enemyCountIncrease;
 document.querySelector(".coins-value").innerHTML = coins;
 document.querySelector(".enemy-speed-value").innerHTML = speed + speedIncrease;
@@ -86,29 +111,10 @@ document.querySelector(".enemy-health-value").innerHTML = health + healthIncreas
 document.querySelector(".kill-count-value").innerHTML = killCount;
 document.querySelector(".wave-count-value").innerHTML = waveCount;
 
-//function to determine suffix of wave count number
-function ordinal_suffix_of(i) {
-    let j = i % 10,
-        k = i % 100;
-    if (j == 1 && k != 11) {
-        return i + "st";
-    }
-    if (j == 2 && k != 12) {
-        return i + "nd";
-    }
-    if (j == 3 && k != 13) {
-        return i + "rd";
-    }
-    return i + "th";
-}
-
-//array to hold active explosions
-const explosions = [];
-
 //spawns first wave of enemies
 spawnEnemies(enemyCount, speed, health);
 
-//main game (animation) loop
+//2.01.g: main game (animation) loop
 function animate() {
     //recursive call, keeps game looping
     const animationId = requestAnimationFrame(animate);
@@ -116,12 +122,12 @@ function animate() {
     //drawing game map
     c.drawImage(image, 0, 0);
 
-    //update and draw valid placement tiles
+    //2.01.g.01: update and draw valid placement tiles
     placementTiles.forEach(tile => {
         tile.update(mouse);
     });
 
-    //update and draw buildings
+    //2.01.g.02: update and draw buildings
     buildings.forEach(building => {
         building.update();
         
@@ -179,7 +185,7 @@ function animate() {
         }
     });
 
-    //update and draw enemies
+    //2.01.g.03: update and draw enemies
     for (let i = enemies.length - 1; i >= 0; i --) {
         const enemy = enemies[i];
         enemy.update();
@@ -199,7 +205,7 @@ function animate() {
         }
     }
 
-    //update and draw explosions
+    //2.01.g.04: update and draw explosions
     for (let i = explosions.length - 1; i >= 0; i --) {
         const explosion = explosions[i];
         explosion.draw();
@@ -210,7 +216,7 @@ function animate() {
         }
     }
 
-    //if all enemies gone
+    //2.01.g.05: if all enemies gone
     if (enemies.length <= 0) {
         
         //increase enemy count, speed, and health then spawn new wave
@@ -234,13 +240,7 @@ function animate() {
     }
 }
 
-//mouse const
-const mouse = {
-    x: undefined,
-    y: undefined
-};
-
-//event listener for clicking on canvas
+//2.01.h:  listener for clicking on canvas
 canvas.addEventListener('click', (event) => {
 
     //if there is a tile hovered
@@ -302,7 +302,7 @@ canvas.addEventListener('click', (event) => {
     }
 })
 
-//event listener for moving mouse in window
+//2.01.i: event listener for moving mouse in window
 window.addEventListener('mousemove', (event) => {
 
     //update mouse position
@@ -341,7 +341,7 @@ window.addEventListener('mousemove', (event) => {
     }
 })
 
-//event listener for clicking the begin button
+//2.01.j: event listener for clicking the begin button
 let beginButton = document.querySelector(".begin-button");
 beginButton.addEventListener('click', (event) => {
 

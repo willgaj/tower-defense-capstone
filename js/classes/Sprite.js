@@ -1,10 +1,10 @@
-//class for sprite rendering
+//2.05: class for sprite rendering
 class Sprite {
 
-    //constructor passed sprite position, imageSrc, animation frames, and image offset
+    //2.05.a: constructor passed sprite position, imageSrc, animation frames, and image offset
     constructor({position = {x: 0, y: 0}, imageSrc, frames = {max: 1}, offset = {x: 0, y: 0}}) {
 
-        //sprite properties
+        //2.05.b-e: sprite properties
         //position of sprite
         //image of sprite
         //animation frames data
@@ -21,7 +21,7 @@ class Sprite {
         this.offset = offset;
     }
 
-    //draw sprite passed by imageSrc (imageSrc is passed for unique building image switching)
+    //2.05.f: draw sprite passed by imageSrc (imageSrc is passed for unique building image switching)
     draw(imageSrc = this.image.src) {
 
         //crop image for animation processing

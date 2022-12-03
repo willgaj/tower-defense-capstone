@@ -1,10 +1,10 @@
-//class for building placement locations
+//2.06: class for building placement locations
 class PlacementTile {
 
-    //constructor is passed the tile location
+    //2.06.a: constructor is passed the tile location
     constructor({position = {x: 0, y: 0}}) {
 
-        //tile properties
+        //2.06.b-f: tile properties
         //position of tile
         //size of tile (for mouse hover detection)
         //color of tile marker
@@ -16,7 +16,7 @@ class PlacementTile {
 		this.levelOne = false;
     }
 
-    //draw tile marker
+    //2.06.g: draw tile marker
     draw() {
         c.beginPath();
 		c.arc(this.position.x, this.position.y, this.size, 0, Math.PI * 2);
@@ -24,7 +24,7 @@ class PlacementTile {
 		c.fill();
     }
 
-    //draw and update tile, passed the current mouse location
+    //2.06.h: draw and update tile, passed the current mouse location
     update(mouse) {
         this.draw();
 
